@@ -39,15 +39,15 @@ class MovieDetailsActivity : AppCompatActivity() {
 
                     binding.textViewBudget.text = formatCurrency.format(result?.budget)
 
-//                    val genresArray = result?.genres
-//                    val sizeGenres: Int? = genresArray?.size()
-//                    var genre: String? = ""
-//                    var genres: String? = ""
-//                    for (i in 0..(sizeGenres!!-1)){
-//                        genre = genresArray?.get(i)?.asJsonObject?.get("name")?.asString.toString()
-//                        genres = genres + ", " + genre
-//                    }
-//                    binding.textViewGenre.text = genres
+                    val genresArray = result?.genres
+                    val sizeGenres: Int? = genresArray?.size
+                    var genre: String? = ""
+                    var genres: String? = ""
+                    for (i in 0..(sizeGenres!!-1)){
+                        genre = genresArray?.get(i)?.name.toString()
+                        genres = genres + ", " + genre
+                    }
+                    binding.textViewGenre.text = genres
 
                     binding.textViewOriginalTitle.text = result?.originalTitle
                     binding.textViewOverview.text = result?.overview

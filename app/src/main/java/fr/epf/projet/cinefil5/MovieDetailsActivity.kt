@@ -31,39 +31,39 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         val result = movieDetailsService.getMovieDetails()
 
-        result.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+        result.enqueue(object : Callback<MovieDetailsResult> {
+            override fun onResponse(call: Call<MovieDetailsResult>, response: Response<MovieDetailsResult>) {
                 if (response.isSuccessful) {
                     val result = response.body()
                     val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
 
-                    binding.textViewBudget.text = formatCurrency.format(result?.get("budget")?.asInt)
+                    binding.textViewBudget.text = formatCurrency.format(result?.budget)
 
-                    val genresArray = result?.get("genres")?.asJsonArray
-                    val sizeGenres: Int? = genresArray?.size()
-                    var genre: String? = ""
-                    var genres: String? = ""
-                    for (i in 0..(sizeGenres!!-1)){
-                        genre = genresArray?.get(i)?.asJsonObject?.get("name")?.asString.toString()
-                        genres = genres + ", " + genre
-                    }
-                    binding.textViewGenre.text = genres
-
-                    binding.textViewOriginalTitle.text = result?.get("original_title")?.asString
-                    binding.textViewOverview.text = result?.get("overview")?.asString
-                    binding.textViewReleasedDate.text = result?.get("release_date")?.asString
-                    binding.textViewRevenue.text = formatCurrency.format(result?.get("revenue")?.asInt)
-                    binding.textViewRuntime.text = result?.get("runtime")?.asString + " minutes"
-                    binding.textViewStatus.text = result?.get("status")?.asString
-                    binding.textViewTagLine.text = result?.get("tagline")?.asString
-                    binding.textViewTitle.text = result?.get("title")?.asString
-//                    val vote_average = result?.get("vote-average")?.asFloat
-//                    if (vote_average != null) {
-//                        binding.ratingBarVoteAverage.rating = vote_average
+//                    val genresArray = result?.genres
+//                    val sizeGenres: Int? = genresArray?.size()
+//                    var genre: String? = ""
+//                    var genres: String? = ""
+//                    for (i in 0..(sizeGenres!!-1)){
+//                        genre = genresArray?.get(i)?.asJsonObject?.get("name")?.asString.toString()
+//                        genres = genres + ", " + genre
 //                    }
-//                    binding.textViewVoteCount.text = result?.get("vote_count")?.asString
+//                    binding.textViewGenre.text = genres
 
-                    val posterPath = result?.get("poster_path")?.asString
+                    binding.textViewOriginalTitle.text = result?.originalTitle
+                    binding.textViewOverview.text = result?.overview
+                    binding.textViewReleasedDate.text = result?.releaseDate
+                    binding.textViewRevenue.text = formatCurrency.format(result?.revenue)
+                    binding.textViewRuntime.text = "${result?.runtime} minutes"
+                    binding.textViewStatus.text = result?.status
+                    binding.textViewTagLine.text = result?.tagline
+                    binding.textViewTitle.text = result?.title
+                    val vote_average = result?.voteAverage
+                    if (vote_average != null) {
+                        binding.ratingBarVoteAverage.rating = vote_average.toFloat()
+                    }
+                    binding.textViewVoteCount.text = result?.voteCount.toString()
+
+                    val posterPath = result?.posterPath
                     val moviePosterURL = "https://image.tmdb.org/t/p/w500" + posterPath
                     val moviePoster = binding.imageViewPoster
                     Glide.with(moviePoster)
@@ -72,7 +72,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<MovieDetailsResult>, t: Throwable) {
                 Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
             }
         })

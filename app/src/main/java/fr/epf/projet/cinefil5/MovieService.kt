@@ -13,5 +13,5 @@ interface MovieService {
     fun getMovieDetailsString(): Call<String>
 
     @GET("movie/2?api_key=7940aff05941e29c97a9c866fbad4ab6")
-    fun getMovieDetails(): Call<JsonObject>
+    fun getMovieDetails(): Call<MovieDetailsResult>
 }

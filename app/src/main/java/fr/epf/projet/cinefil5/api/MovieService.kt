@@ -9,6 +9,7 @@ import retrofit2.http.Path
 //Popular: https://api.themoviedb.org/3/movie/popular?api_key=7940aff05941e29c97a9c866fbad4ab6
 //MovieDetailsById: https://api.themoviedb.org/3/movie/2?api_key=7940aff05941e29c97a9c866fbad4ab6
 //Poster: https://image.tmdb.org/t/p/w500/nLBRD7UPR6GjmWQp6ASAfCTaWKX.jpg
+//Recommendations: https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=7940aff05941e29c97a9c866fbad4ab6
 
 interface MovieService {
     companion object {

@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import fr.epf.projet.cinefil5.model.Result
+import fr.epf.projet.cinefil5.model.PopularDetailsResult
 
 
-class MoviesAdapter(var items: List<Result>) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(var items: List<PopularDetailsResult>) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     private  lateinit var mListener: onItemClickListener
     interface onItemClickListener{
@@ -56,7 +56,7 @@ class MoviesAdapter(var items: List<Result>) : RecyclerView.Adapter<MoviesAdapte
 
         }
 
-        fun bind(movie: Result) {
+        fun bind(movie: PopularDetailsResult) {
             title.text = movie.title
             releaseDate.text = movie.releaseDate
             overview.text = movie.overview

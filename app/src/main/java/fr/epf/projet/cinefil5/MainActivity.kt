@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMainBinding
-import fr.epf.projet.cinefil5.model.PopularResult
+import fr.epf.projet.cinefil5.model.ServiceResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,8 +33,8 @@ class MainActivity : AppCompatActivity() {
 
         val result = movieService.getMoviePopular()
 
-        result.enqueue(object : Callback<PopularResult> {
-            override fun onResponse(call: Call<PopularResult>, response: Response<PopularResult>) {
+        result.enqueue(object : Callback<ServiceResult> {
+            override fun onResponse(call: Call<ServiceResult>, response: Response<ServiceResult>) {
                 if (response.isSuccessful) {
                     val result = response.body()
                     val items = result?.results
@@ -61,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<PopularResult>, t: Throwable) {
+            override fun onFailure(call: Call<ServiceResult>, t: Throwable) {
                 Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
             }
         })

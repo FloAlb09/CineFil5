@@ -214,6 +214,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Revenue: "
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/text_view_revenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="12sp"
+                            tools:text="130,000" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <TextView
@@ -230,37 +253,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
                             tools:text="Technicien au BEA, autorité responsable des enquêtes de sécurité dans l'aviation civile, Mathieu Vasseur est propulsé enquêteur en chef sur une catastrophe aérienne sans précédent. Erreur de pilotage, défaillance technique ou acte terroriste : l'analyse minutieuse des boîtes noires va pousser Mathieu à mener en secret sa propre investigation. Il ignore encore jusqu'où va le mener sa quête de vérité." />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Revenue: "
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/text_view_revenue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textSize="12sp"
-                                tools:text="130,000" />
-
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/button_recommended"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Recommend movies" />
-
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button_recommended"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recommend movies" />
 
                 </LinearLayout>
             </LinearLayout>

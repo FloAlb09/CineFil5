@@ -2,16 +2,16 @@ package fr.epf.projet.cinefil5.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularResult(
+data class ServiceResult(
     val page: Int,
-    val results: List<PopularDetailsResult>,
+    val results: List<ServiceDetailsResult>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")
     val totalResults: Int
 )
 
-data class PopularDetailsResult(
+data class ServiceDetailsResult(
     val id: Int,
     @SerializedName("original_title")
     val originalTitle: String,

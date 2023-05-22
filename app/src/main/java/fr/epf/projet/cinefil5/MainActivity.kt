@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMainBinding
 import fr.epf.projet.cinefil5.model.PopularResult
@@ -43,7 +45,18 @@ class MainActivity : AppCompatActivity() {
                     val items = result?.results
                     Log.i("items: ", items.toString())
                     items?.let {
-                        binding.moviesRecyclerview.adapter = MoviesAdapter(items)
+                        var moviesAdapter = MoviesAdapter(items)
+                        binding.moviesRecyclerview.adapter = moviesAdapter
+                        moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
+                            override fun onItemClick(position: Int) {
+//                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+                                intent.putExtra("id", items[position].id)
+                                Log.i("idMovie MainActivity", items[position].id.toString())
+                                startActivity(intent)
+                            }
+
+                        })
                         binding.moviesRecyclerview.apply {
                             layoutManager = LinearLayoutManager(this@MainActivity)
                             adapter = binding.moviesRecyclerview.adapter

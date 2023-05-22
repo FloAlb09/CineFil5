@@ -11,11 +11,20 @@ import fr.epf.projet.cinefil5.model.Result
 
 class MoviesAdapter(var items: List<Result>) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
+    private  lateinit var mListener: onItemClickListener
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MoviesViewHolder(itemView)
+        return MoviesViewHolder(itemView, mListener)
 
     }
 
@@ -26,7 +35,7 @@ class MoviesAdapter(var items: List<Result>) : RecyclerView.Adapter<MoviesAdapte
 
     override fun getItemCount() = items.size
 
-    inner class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MoviesViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
         private val `IMAGE-URL` = "https://image.tmdb.org/t/p/w500"
         var poster: ImageView
         var title: TextView
@@ -40,6 +49,11 @@ class MoviesAdapter(var items: List<Result>) : RecyclerView.Adapter<MoviesAdapte
             releaseDate = itemView.findViewById(R.id.releasedate_textview)
             voteAverage = itemView.findViewById(R.id.voteaverage_ratingbar)
             overview = itemView.findViewById(R.id.overview_textview)
+
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+
         }
 
         fun bind(movie: Result) {

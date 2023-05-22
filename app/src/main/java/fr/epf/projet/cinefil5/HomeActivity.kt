@@ -16,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -44,14 +44,14 @@ class MainActivity : AppCompatActivity() {
                         moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
                             override fun onItemClick(position: Int) {
 //                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+                                val intent = Intent(this@HomeActivity, MovieDetailsActivity::class.java)
                                 intent.putExtra("id", items[position].id)
                                 startActivity(intent)
                             }
 
                         })
                         binding.moviesRecyclerview.apply {
-                            layoutManager = LinearLayoutManager(this@MainActivity)
+                            layoutManager = LinearLayoutManager(this@HomeActivity)
                             adapter = binding.moviesRecyclerview.adapter
                         }
 

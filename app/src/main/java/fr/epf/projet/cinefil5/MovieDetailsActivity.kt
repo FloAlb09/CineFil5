@@ -1,7 +1,9 @@
 package fr.epf.projet.cinefil5
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -17,6 +19,8 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailsBinding
 
+    lateinit var recommendedButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
@@ -24,16 +28,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         val movieService = RetrofitInstance.buildMovieService()
 
-        val idMovie: Int = intent.getIntExtra("id",1)
-        Log.i("idMovie MovieDetailsActivity", idMovie.toString())
+        val idMovie: Int = intent.getIntExtra("id", 1)
 
         val result = movieService.getMovieDetails(idMovie)
-        Log.i("result", result.toString())
 
         result.enqueue(object : Callback<MovieDetailsResult> {
             override fun onResponse(
-                call: Call<MovieDetailsResult>,
-                response: Response<MovieDetailsResult>
+                call: Call<MovieDetailsResult>, response: Response<MovieDetailsResult>
             ) {
                 if (response.isSuccessful) {
                     val result = response.body()
@@ -46,7 +47,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     var genre: String? = ""
                     var genres: String? = ""
                     for (i in 0..(sizeGenres!! - 1)) {
-                        genre = genresArray.get(i)?.name.toString()
+                        genre = genresArray.get(i).name.toString()
                         genres = genres + ", " + genre
                     }
                     binding.textViewGenre.text = genres
@@ -68,9 +69,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     val posterPath = result.posterPath
                     val moviePosterURL = "https://image.tmdb.org/t/p/w500" + posterPath
                     val moviePoster = binding.imageViewPoster
-                    Glide.with(moviePoster)
-                        .load(moviePosterURL)
-                        .into(moviePoster)
+                    Glide.with(moviePoster).load(moviePosterURL).into(moviePoster)
                 }
             }
 
@@ -78,5 +77,13 @@ class MovieDetailsActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
             }
         })
+
+        recommendedButton = findViewById(R.id.button_recommended)
+
+        recommendedButton.setOnClickListener {
+            val intent = Intent(this, MovieDetailsActivity::class.java)
+            intent.putExtra("id", idMovie)
+            this.startActivity(intent)
+        }
     }
 }

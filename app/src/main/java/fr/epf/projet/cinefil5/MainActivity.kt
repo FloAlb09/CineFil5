@@ -31,19 +31,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i("test","après onCreate")
-
         val movieService = RetrofitInstance.buildMovieService()
 
         val result = movieService.getMoviePopular()
-        Log.i("result..............", result.toString())
 
         result.enqueue(object : Callback<PopularResult> {
             override fun onResponse(call: Call<PopularResult>, response: Response<PopularResult>) {
                 if (response.isSuccessful) {
                     val result = response.body()
                     val items = result?.results
-                    Log.i("items: ", items.toString())
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
                         binding.moviesRecyclerview.adapter = moviesAdapter
@@ -52,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 //                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
                                 intent.putExtra("id", items[position].id)
-                                Log.i("idMovie MainActivity", items[position].id.toString())
                                 startActivity(intent)
                             }
 
@@ -67,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<PopularResult>, t: Throwable) {
-                Log.i("throw---------------Error: ", t.toString())
                 Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
             }
         })

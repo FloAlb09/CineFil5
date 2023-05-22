@@ -5,12 +5,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMovieDetailsBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.text.NumberFormat
 import java.util.*
 
@@ -23,16 +22,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        val retrofit = Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-
-        val movieDetailsService = retrofit.create(MovieService::class.java)
+        val movieService = RetrofitInstance.buildMovieService()
 
         val idMovie: Int = intent.getIntExtra("id",1)
         Log.i("idMovie MovieDetailsActivity", idMovie.toString())
 
-        val result = movieDetailsService.getMovieDetails(idMovie)
+        val result = movieService.getMovieDetails(idMovie)
         Log.i("result", result.toString())
 
         result.enqueue(object : Callback<MovieDetailsResult> {

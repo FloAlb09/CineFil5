@@ -1,5 +1,7 @@
-package fr.epf.projet.cinefil5
+package fr.epf.projet.cinefil5.api
 
+import fr.epf.projet.cinefil5.MovieDetailsResult
+import fr.epf.projet.cinefil5.model.PopularResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,9 +16,7 @@ interface MovieService {
     }
 
     @GET("movie/popular?api_key=$API_KEY")
-    fun getMoviePopular(): Call<String>
-
-
+    fun getMoviePopular(): Call<PopularResult>
 
     @GET("movie/{idMovie}?api_key=$API_KEY")
     fun getMovieDetails(@Path("idMovie") id: Int): Call<MovieDetailsResult>

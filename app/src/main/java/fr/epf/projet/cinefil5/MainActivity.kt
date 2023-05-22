@@ -8,12 +8,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMainBinding
+import fr.epf.projet.cinefil5.model.PopularResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,34 +29,45 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.i("test","après onCreate")
+
+        val movieService = RetrofitInstance.buildMovieService()
+
+        val result = movieService.getMoviePopular()
+        Log.i("result..............", result.toString())
+
+        result.enqueue(object : Callback<PopularResult> {
+            override fun onResponse(call: Call<PopularResult>, response: Response<PopularResult>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    val items = result?.results
+                    Log.i("items: ", items.toString())
+                    items?.let {
+                        binding.moviesRecyclerview.adapter = MoviesAdapter(items)
+                        binding.moviesRecyclerview.apply {
+                            layoutManager = LinearLayoutManager(this@MainActivity)
+                            adapter = binding.moviesRecyclerview.adapter
+                        }
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PopularResult>, t: Throwable) {
+                Log.i("throw---------------Error: ", t.toString())
+                Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         toolbar = findViewById(R.id.toolbar)
         vectorAssetSearch = toolbar.findViewById(R.id.search_vectorasset)
         editTextSearch = toolbar.findViewById(R.id.charsearch_edittext)
 
         setSupportActionBar(toolbar)
 
-        val retrofit = Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
-            .addConverterFactory(ScalarsConverterFactory.create()).build()
-
-        val movieDetailsService = retrofit.create(MovieService::class.java)
-
-        val result = movieDetailsService.getMoviePopular()
-
-        result.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    binding.tvResponse.text = response.body()
-                }
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
-            }
-        })
-
         vectorAssetSearch.setOnClickListener {
             val idMovie = editTextSearch.text.toString()
-            if (idMovie.isEmpty()){
+            if (idMovie.isEmpty()) {
                 Toast.makeText(this, "idMovie can't be empty!!", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this, MovieDetailsActivity::class.java)

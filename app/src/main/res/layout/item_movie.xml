@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    app:cardCornerRadius="8dp"
+    android:padding="8dp"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/dark_blue"
+    app:cardElevation="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/movie_imageview"
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/boitenoire" />
+
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/movie_imageview"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            tools:text="Boite Noire"/>
+
+        <TextView
+            android:id="@+id/releasedatehint_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_textview"
+            android:layout_toEndOf="@id/movie_imageview"
+            android:textStyle="bold"
+            android:text="Release date:"/>
+        <TextView
+            android:id="@+id/releasedate_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_textview"
+            android:layout_toEndOf="@id/releasedatehint_textview"
+            android:layout_marginStart="4dp"
+            tools:text="08/07/2021"/>
+
+        <RatingBar
+            android:id="@+id/voteaverage_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/releasedatehint_textview"
+            android:layout_toEndOf="@id/movie_imageview"
+            android:layout_marginTop="4dp"
+            android:secondaryProgressTint="#FFEB3B"
+            android:progressTint="#FFEB3B"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:numStars="10"
+            tools:rating="3"/>
+
+        <TextView
+            android:id="@+id/overview_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/movie_imageview"
+            android:maxLines="4"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            tools:text="Technicien au BEA, autorité responsable des enquêtes de sécurité dans l'aviation civile, Mathieu Vasseur est propulsé enquêteur en chef sur une catastrophe aérienne sans précédent. Erreur de pilotage, défaillance technique ou acte terroriste : l'analyse minutieuse des boîtes noires va pousser Mathieu à mener en secret sa propre investigation. Il ignore encore jusqu'où va le mener sa quête de vérité."/>
+        <TextView
+            android:id="@+id/overviewhint_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/voteaverage_ratingbar"
+            android:layout_above="@id/overview_textview"
+            android:layout_toEndOf="@id/movie_imageview"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:text="Overview:"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

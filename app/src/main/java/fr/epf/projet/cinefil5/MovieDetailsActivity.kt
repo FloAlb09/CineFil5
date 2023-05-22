@@ -81,7 +81,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         recommendedButton = findViewById(R.id.button_recommended)
 
         recommendedButton.setOnClickListener {
-            val intent = Intent(this, MovieDetailsActivity::class.java)
+            val intent = Intent(this, MovieRecommendationsActivity::class.java)
             intent.putExtra("id", idMovie)
             this.startActivity(intent)
         }

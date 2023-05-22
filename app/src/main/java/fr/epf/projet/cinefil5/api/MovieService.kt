@@ -21,4 +21,7 @@ interface MovieService {
 
     @GET("movie/{idMovie}?api_key=$API_KEY")
     fun getMovieDetails(@Path("idMovie") id: Int): Call<MovieDetailsResult>
+
+    @GET("movie/{idMovie}/recommendations?api_key=$API_KEY")
+    fun getMovieRecommendations(@Path("idMovie") id: Int): Call<ServiceResult>
 }

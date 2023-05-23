@@ -74,13 +74,13 @@ class KeywordActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         vectorAssetSearch.setOnClickListener {
-            val keyword = editTextSearch.text.toString()
+            val keyword = editTextSearch.text
             if (keyword.isEmpty()) {
                 Toast.makeText(this, "The search bar can't be empty!!", Toast.LENGTH_SHORT).show()
             } else {
-                val intent = Intent(this, MovieDetailsActivity::class.java)
-                intent.putExtra("keyword", keyword)
-                Log.i("keyword MainActivity", keyword)
+                val intent = Intent(this, KeywordActivity::class.java)
+                intent.putExtra("keyword", keyword.toString())
+                Log.i("keyword MainActivity", keyword.toString())
                 this.startActivity(intent)
             }
         }

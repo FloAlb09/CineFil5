@@ -29,7 +29,7 @@
             android:background="#252525"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
-            tools:text="Boite Noire" />
+            tools:text="@string/movie_title" />
 
         <ImageView
             android:id="@+id/search_vectorasset"
@@ -43,4 +43,3 @@
     </RelativeLayout>
 
 </androidx.appcompat.widget.Toolbar>
-

@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.CineFil5"  parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.CineFil5" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_blue</item>
-        <item name="colorPrimaryVariant">@color/dark_blue</item>
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>
@@ -14,4 +14,37 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Default text -->
+    <style name="DefaultTextStyle">
+        <item name="android:textColor">@color/lightGrey</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/kanit</item>
+    </style>
+    <!-- Default hint text-->
+    <style name="DefaultHintTextStyle" parent="DefaultTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/kanit</item>
+    </style>
+    <!-- Subtitle -->
+    <style name="SubtitleTextStyle" parent="DefaultTextStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!-- Title -->
+    <style name="TitleTextStyle" parent="SubtitleTextStyle">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <!-- Movie title -->
+    <style name="MovieTitle" parent="SubtitleTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <!-- Background -->
+    <style name="BackgroundStyle">
+        <item name="android:background">@color/darkBlack</item>
+    </style>
+
+
 </resources>

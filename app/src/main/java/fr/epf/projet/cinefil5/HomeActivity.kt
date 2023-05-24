@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.epf.projet.cinefil5.api.RetrofitInstance
-import fr.epf.projet.cinefil5.databinding.ActivityMainBinding
+import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
 import fr.epf.projet.cinefil5.model.ServiceResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityHomeBinding
 
     lateinit var toolbar: Toolbar
     lateinit var vectorAssetSearch: ImageView
@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val movieService = RetrofitInstance.buildMovieService()

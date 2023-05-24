@@ -1,3 +1,41 @@
 <resources>
-    <string name="app_name">CineFil5</string>
+    <string name="app_name">CineFil</string>
+
+    <!-- Homepage -->
+    <string name="homepage_title">Discover your movies of tomorrow</string>
+
+    <!-- Details movie page -->
+    <string name="details_movie_title">Movie details</string>
+    <string name="movie_original_title">The Courier</string>
+    <string name="movie_vote_count">66000</string>
+    <string name="movie_info_hint">Movie informations</string>
+    <string name="movie_genres_hint">Genres:</string>
+    <string name="movie_genres">Drama, History, Thriller</string>
+    <string name="movie_status_hint">Status:</string>
+    <string name="movie_status">Released</string>
+    <string name="movie_runtime_hint">Runtime:</string>
+    <string name="movie_runtime">112 minutes</string>
+    <string name="movie_budget_hint">Budget:</string>
+    <string name="movie_budget">$20,000,000</string>
+    <string name="movie_revenue_hint">Revenue:</string>
+    <string name="movie_revenue">$26,000,000</string>
+    <string name="movie_recommended_movies_button">Recommended movies</string>
+
+    <!-- Collection page -->
+    <string name="collection_page_title">My Collection</string>
+
+
+    <!-- Movie customize -->
+    <string name="movie_poster">Movie poster</string>
+    <string name="movie_title">The Courier</string>
+    <string name="movie_release_date_hint">Release date:</string>
+    <string name="movie_release_date">23–06–2021</string>
+    <string name="movie_overview_hint">Overview</string>
+    <string name="movie_overview">The true story of a British businessman unwittingly recruited into one of the greatest international conflicts in history. Forming an unlikely partnership with a Soviet officer hoping to prevent a nuclear confrontation, the two men work together to provide the crucial intelligence used to defuse the Cuban Missile Crisis.</string>
+
+    <string name="toolbar_keyword_input">What are you looking for ?</string>
+
+
+
+
 </resources>

@@ -2,7 +2,6 @@ package fr.epf.projet.cinefil5
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailsBinding
 
-    lateinit var recommendedButton: Button
+    lateinit var recommendationButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     val result = response.body()
                     val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
 
-                    binding.textViewBudget.text = formatCurrency.format(result?.budget)
+                    binding.movieDetailsBudget.text = formatCurrency.format(result?.budget)
 
                     val genresArray = result?.genres
                     val sizeGenres: Int? = genresArray?.size
@@ -50,25 +49,24 @@ class MovieDetailsActivity : AppCompatActivity() {
                         genre = genresArray.get(i).name.toString()
                         genres = genres + ", " + genre
                     }
-                    binding.textViewGenre.text = genres
+                    binding.movieDetailsGenres.text = genres
 
-                    binding.textViewOriginalTitle.text = result.originalTitle
-                    binding.textViewOverview.text = result.overview
-                    binding.textViewReleasedDate.text = result.releaseDate
-                    binding.textViewRevenue.text = formatCurrency.format(result.revenue)
-                    binding.textViewRuntime.text = "${result.runtime} minutes"
-                    binding.textViewStatus.text = result.status
-                    binding.textViewTagLine.text = result.tagline
-                    binding.textViewTitle.text = result.title
+                    binding.movieDetailsOriginalTitle.text = result.originalTitle
+                    binding.movieDetailsOverview.text = result.overview
+                    binding.movieDetailsReleaseDate.text = result.releaseDate
+                    binding.movieDetailsRevenue.text = formatCurrency.format(result.revenue)
+                    binding.movieDetailsRuntime.text = "${result.runtime} minutes"
+                    binding.movieDetailsStatus.text = result.status
+                    binding.movieDetailsTitle.text = result.title
                     val vote_average = result.voteAverage
                     if (vote_average != null) {
-                        binding.ratingBarVoteAverage.rating = vote_average.toFloat()
+                        binding.movieDetailsVoteAverage.rating = vote_average.toFloat()
                     }
-                    binding.textViewVoteCount.text = result.voteCount.toString()
+                    binding.movieDetailsVoteCount.text = result.voteCount.toString()
 
                     val posterPath = result.posterPath
                     val moviePosterURL = "https://image.tmdb.org/t/p/w500" + posterPath
-                    val moviePoster = binding.imageViewPoster
+                    val moviePoster = binding.movieDetailsPoster
                     Glide.with(moviePoster).load(moviePosterURL).into(moviePoster)
                 }
             }
@@ -78,9 +76,9 @@ class MovieDetailsActivity : AppCompatActivity() {
             }
         })
 
-        recommendedButton = findViewById(R.id.button_recommended)
+        recommendationButton = findViewById(R.id.movie_details_recommendations)
 
-        recommendedButton.setOnClickListener {
+        recommendationButton.setOnClickListener {
             val intent = Intent(this, MovieRecommendationsActivity::class.java)
             intent.putExtra("id", idMovie)
             this.startActivity(intent)

@@ -44,11 +44,11 @@ class MoviesAdapter(var items: List<ServiceDetailsResult>) : RecyclerView.Adapte
         var overview: TextView
 
         init {
-            poster = itemView.findViewById(R.id.movie_imageview)
-            title = itemView.findViewById(R.id.title_textview)
-            releaseDate = itemView.findViewById(R.id.releasedate_textview)
-            voteAverage = itemView.findViewById(R.id.voteaverage_ratingbar)
-            overview = itemView.findViewById(R.id.overview_textview)
+            poster = itemView.findViewById(R.id.item_movie_poster)
+            title = itemView.findViewById(R.id.item_movie_title)
+            releaseDate = itemView.findViewById(R.id.item_movie_release_date)
+            voteAverage = itemView.findViewById(R.id.item_movie_vote_average)
+            overview = itemView.findViewById(R.id.item_movie_overview)
 
             itemView.setOnClickListener {
                 listener.onItemClick(adapterPosition)

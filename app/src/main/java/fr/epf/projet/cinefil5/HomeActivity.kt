@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
 import fr.epf.projet.cinefil5.model.ServiceResult
@@ -31,16 +32,15 @@ class HomeActivity : AppCompatActivity() {
 
         val movieService = RetrofitInstance.buildMovieService()
 
-        val result = movieService.getMoviePopular()
-
-        result.enqueue(object : Callback<ServiceResult> {
+        val resultPopular = movieService.getMoviePopular()
+        resultPopular.enqueue(object : Callback<ServiceResult> {
             override fun onResponse(call: Call<ServiceResult>, response: Response<ServiceResult>) {
                 if (response.isSuccessful) {
                     val result = response.body()
                     val items = result?.results
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
-                        binding.moviesRecyclerview.adapter = moviesAdapter
+                        binding.popularMoviesRecyclerview.adapter = moviesAdapter
                         moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
                             override fun onItemClick(position: Int) {
 //                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
@@ -50,9 +50,41 @@ class HomeActivity : AppCompatActivity() {
                             }
 
                         })
-                        binding.moviesRecyclerview.apply {
-                            layoutManager = LinearLayoutManager(this@HomeActivity)
-                            adapter = binding.moviesRecyclerview.adapter
+                        binding.popularMoviesRecyclerview.apply {
+                            layoutManager = LinearLayoutManager(this@HomeActivity,HORIZONTAL,false)
+                            adapter = binding.popularMoviesRecyclerview.adapter
+                        }
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ServiceResult>, t: Throwable) {
+                Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        val resultTrendingWeek = movieService.getMovieTrending()
+        resultTrendingWeek.enqueue(object : Callback<ServiceResult> {
+            override fun onResponse(call: Call<ServiceResult>, response: Response<ServiceResult>) {
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    val items = result?.results
+                    items?.let {
+                        var moviesAdapter = MoviesAdapter(items)
+                        binding.trendingWeekMoviesRecyclerview.adapter = moviesAdapter
+                        moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
+                            override fun onItemClick(position: Int) {
+//                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@HomeActivity, MovieDetailsActivity::class.java)
+                                intent.putExtra("id", items[position].id)
+                                startActivity(intent)
+                            }
+
+                        })
+                        binding.trendingWeekMoviesRecyclerview.apply {
+                            layoutManager = LinearLayoutManager(this@HomeActivity,HORIZONTAL,false)
+                            adapter = binding.trendingWeekMoviesRecyclerview.adapter
                         }
 
                     }

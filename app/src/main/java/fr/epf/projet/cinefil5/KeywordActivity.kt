@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
+import fr.epf.projet.cinefil5.databinding.ActivityKeywordBinding
 import fr.epf.projet.cinefil5.model.ServiceResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +19,7 @@ import retrofit2.Response
 
 class KeywordActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityKeywordBinding
 
     lateinit var toolbar: Toolbar
     lateinit var vectorAssetSearch: ImageView
@@ -26,7 +27,7 @@ class KeywordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityKeywordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val movieService = RetrofitInstance.buildMovieService()
@@ -43,7 +44,7 @@ class KeywordActivity : AppCompatActivity() {
                     val items = result?.results
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
-                        binding.moviesRecyclerview.adapter = moviesAdapter
+                        binding.keywordMoviesRecyclerview.adapter = moviesAdapter
                         moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
                             override fun onItemClick(position: Int) {
 //                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
@@ -53,9 +54,9 @@ class KeywordActivity : AppCompatActivity() {
                             }
 
                         })
-                        binding.moviesRecyclerview.apply {
+                        binding.keywordMoviesRecyclerview.apply {
                             layoutManager = LinearLayoutManager(this@KeywordActivity)
-                            adapter = binding.moviesRecyclerview.adapter
+                            adapter = binding.keywordMoviesRecyclerview.adapter
                         }
 
                     }

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
+import fr.epf.projet.cinefil5.databinding.ActivityMovieRecommendationsBinding
 import fr.epf.projet.cinefil5.model.ServiceResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +19,7 @@ import retrofit2.Response
 
 class MovieRecommendationsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityMovieRecommendationsBinding
 
     lateinit var toolbar: Toolbar
     lateinit var vectorAssetSearch: ImageView
@@ -26,7 +27,7 @@ class MovieRecommendationsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityMovieRecommendationsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val movieService = RetrofitInstance.buildMovieService()
@@ -42,7 +43,7 @@ class MovieRecommendationsActivity : AppCompatActivity() {
                     val items = result?.results
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
-                        binding.moviesRecyclerview.adapter = moviesAdapter
+                        binding.movieRecommendationsRecyclerview.adapter = moviesAdapter
                         moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
                             override fun onItemClick(position: Int) {
 //                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
@@ -52,9 +53,9 @@ class MovieRecommendationsActivity : AppCompatActivity() {
                             }
 
                         })
-                        binding.moviesRecyclerview.apply {
+                        binding.movieRecommendationsRecyclerview.apply {
                             layoutManager = LinearLayoutManager(this@MovieRecommendationsActivity)
-                            adapter = binding.moviesRecyclerview.adapter
+                            adapter = binding.movieRecommendationsRecyclerview.adapter
                         }
 
                     }

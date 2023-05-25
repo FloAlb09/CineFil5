@@ -3,6 +3,8 @@
 
     <!-- Homepage -->
     <string name="homepage_title">Discover your movies of tomorrow</string>
+    <string name="homepage_pouplar_movie_hint">Popular movies</string>
+    <string name="homepage_trending_week_movie_hint">Week trending movies</string>
 
     <!-- Details movie page -->
     <string name="details_movie_title">Movie details</string>

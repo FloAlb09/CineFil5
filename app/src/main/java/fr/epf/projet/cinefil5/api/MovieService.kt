@@ -11,6 +11,7 @@ import retrofit2.http.Query
 //MovieDetailsById: https://api.themoviedb.org/3/movie/2?api_key=7940aff05941e29c97a9c866fbad4ab6
 //Poster: https://image.tmdb.org/t/p/w500/nLBRD7UPR6GjmWQp6ASAfCTaWKX.jpg
 //Recommendations: https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=7940aff05941e29c97a9c866fbad4ab6
+//Trending-week: https://api.themoviedb.org/3/trending/movie/week?api_key=7940aff05941e29c97a9c866fbad4ab6
 //Keyword: https://api.themoviedb.org/3/search/movie?api_key=7940aff05941e29c97a9c866fbad4ab6&query={keyword}
 
 interface MovieService {
@@ -20,6 +21,9 @@ interface MovieService {
 
     @GET("movie/popular?api_key=$API_KEY")
     fun getMoviePopular(): Call<ServiceResult>
+
+    @GET("trending/movie/week?api_key=$API_KEY")
+    fun getMovieTrending(): Call<ServiceResult>
 
     @GET("movie/{idMovie}?api_key=$API_KEY")
     fun getMovieDetails(@Path("idMovie") id: Int): Call<MovieDetailsResult>

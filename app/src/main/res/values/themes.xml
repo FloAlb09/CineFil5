@@ -29,6 +29,7 @@
     <!-- Subtitle -->
     <style name="SubtitleTextStyle" parent="DefaultTextStyle">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <!-- Title -->
     <style name="TitleTextStyle" parent="SubtitleTextStyle">

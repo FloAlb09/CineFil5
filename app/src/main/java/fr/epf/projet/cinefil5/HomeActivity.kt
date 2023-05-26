@@ -96,6 +96,11 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
+        binding.activityHomeButtonSacnner.setOnClickListener{
+            val intent = Intent(this, ScannerActivity::class.java)
+            this.startActivity(intent)
+        }
+
         toolbar = findViewById(R.id.toolbar)
         vectorAssetSearch = toolbar.findViewById(R.id.search_vectorasset)
         editTextSearch = toolbar.findViewById(R.id.charsearch_edittext)

@@ -16,7 +16,8 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
             $MOVIE_ORIGINAL_TITLE varchar (50),
             $MOVIE_RELEASE_DATE varchar (10),
             $MOVIE_VOTE_AVERAGE float,            
-            $MOVIE_OVERVIEW varchar(200)
+            $MOVIE_OVERVIEW varchar(200),
+            $MOVIE_LIKED boolean
             )
         """.trimIndent()
         db?.execSQL(createTableFavoris)
@@ -28,7 +29,7 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
         onCreate(db)
     }
 
-    fun addFavoris(favoris: ServiceDetailsResult): Boolean{
+    fun addFavoris(favoris: ServiceDetailsResult): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(MOVIE_ID, favoris.id)
@@ -38,7 +39,8 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
         values.put(MOVIE_RELEASE_DATE, favoris.releaseDate)
         values.put(MOVIE_VOTE_AVERAGE, favoris.voteAverage)
         values.put(MOVIE_OVERVIEW, favoris.overview)
-        val result = db.insert(FAVORIS_TABLE_NAME,null, values).toInt()
+        values.put(MOVIE_LIKED, 1)
+        val result = db.insert(FAVORIS_TABLE_NAME, null, values).toInt()
         db.close()
         return result != -1
     }
@@ -48,19 +50,26 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
         val db = this.readableDatabase
         val selectQuery = "SELECT * FROM $FAVORIS_TABLE_NAME"
         val cursor = db.rawQuery(selectQuery, null)
-        if (cursor != null){
-            if (cursor.moveToFirst()){
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getInt(cursor.getColumnIndexOrThrow(MOVIE_ID))
-                    val posterPath = cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_POSTER_PATH))
+                    val posterPath =
+                        cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_POSTER_PATH))
                     val title = cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_TITLE))
-                    val originalTitle = cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_ORIGINAL_TITLE))
-                    val releaseDate = cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_RELEASE_DATE))
-                    val voteAverage = cursor.getFloat(cursor.getColumnIndexOrThrow(MOVIE_VOTE_AVERAGE))
+                    val originalTitle =
+                        cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_ORIGINAL_TITLE))
+                    val releaseDate =
+                        cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_RELEASE_DATE))
+                    val voteAverage =
+                        cursor.getFloat(cursor.getColumnIndexOrThrow(MOVIE_VOTE_AVERAGE))
                     val overview = cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_OVERVIEW))
-                    val collection = ServiceDetailsResult(id, posterPath, title, originalTitle, releaseDate, voteAverage, overview)
+                    val liked = cursor.getInt(cursor.getColumnIndexOrThrow(MOVIE_LIKED))
+                    val collection = ServiceDetailsResult(
+                        id, posterPath, title, originalTitle, releaseDate, voteAverage, overview, liked
+                    )
                     favoris.add(collection)
-                } while(cursor.moveToNext())
+                } while (cursor.moveToNext())
             }
         }
         db.close()
@@ -69,7 +78,7 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
 
     companion object {
         private val DB_NAME = "favorisDB"
-        private val DB_VERSION = 5
+        private val DB_VERSION = 6
         private val FAVORIS_TABLE_NAME = "favoris"
         private val MOVIE_ID = "movieId"
         private val MOVIE_POSTER_PATH = "moviePosterPath"
@@ -78,5 +87,6 @@ class FavorisDatabase(contextDb: Context) : SQLiteOpenHelper(contextDb, DB_NAME,
         private val MOVIE_RELEASE_DATE = "movieReleaseDate"
         private val MOVIE_VOTE_AVERAGE = "movieVoteAverage"
         private val MOVIE_OVERVIEW = "movieOverview"
+        private val MOVIE_LIKED = "movieLiked"
     }
 }

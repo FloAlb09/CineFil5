@@ -26,6 +26,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var releaseDateDb: String
     var voteAverageDb: Float = 0.0f
     lateinit var overviewDb: String
+    var likedDb: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +101,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
         binding.movieDetailsFavoris.setOnClickListener {
+
             val favoris = ServiceDetailsResult(
                 idMovie,
                 posterPathDb,
@@ -107,18 +109,20 @@ class MovieDetailsActivity : AppCompatActivity() {
                 originalTitleDb,
                 releaseDateDb,
                 voteAverageDb,
-                overviewDb
+                overviewDb,
+                likedDb
             )
             val isInserted = db.addFavoris(favoris)
+
             if (isInserted) {
                 Toast.makeText(
                     this, getString(R.string.success_favoris), Toast.LENGTH_SHORT
                 ).show()
+                binding.movieDetailsFavoris.setImageResource(R.drawable.ic_star)
                 val intent = Intent(this, FavorisActivity::class.java)
                 intent.putExtra("id", idMovie)
                 this.startActivity(intent)
             }
         }
-
     }
 }

@@ -22,5 +22,6 @@ data class ServiceDetailsResult(
     val releaseDate: String,
     @SerializedName("vote_average")
     val voteAverage: Float,
-    val overview: String
+    val overview: String,
+    val liked: Int
 )

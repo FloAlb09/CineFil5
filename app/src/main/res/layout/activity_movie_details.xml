@@ -7,7 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailsActivity">
 
+    <ImageView
+        android:id="@+id/movie_details_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="381dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -28,6 +39,7 @@
                     android:id="@+id/movie_details_poster"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
+                    android:layout_marginTop="14dp"
                     android:scaleType="fitCenter"
                     tools:src="@drawable/thecourier" />
 
@@ -39,12 +51,23 @@
                     android:orientation="vertical"
                     android:padding="4dp">
 
-                    <TextView
-                        style="@style/TitleTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/details_movie_title" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/TitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="100dp"
+                            android:text="@string/details_movie_title" />
+
+                        <ImageView
+                            android:id="@+id/movie_details_favoris"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_unstar" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/movie_details_title"
@@ -94,8 +117,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_genres_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_genres_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_genres"
@@ -115,8 +138,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_release_date_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_release_date_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_release_date"
@@ -136,8 +159,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_status_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_status_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_status"
@@ -157,8 +180,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_runtime_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_runtime_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_runtime"
@@ -179,8 +202,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_budget_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_budget_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_budget"
@@ -201,8 +224,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_revenue_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_revenue_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_revenue"
@@ -222,8 +245,8 @@
                             style="@style/DefaultHintTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/movie_overview_hint"
-                            android:layout_marginEnd="@dimen/default_margin_end_hint"/>
+                            android:layout_marginEnd="@dimen/default_margin_end_hint"
+                            android:text="@string/movie_overview_hint" />
 
                         <TextView
                             android:id="@+id/movie_details_overview"
@@ -239,17 +262,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/movie_recommended_movies_button" />
-
-                    <Button
-                        android:id="@+id/movie_details_favoris"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Favoris" />
-
                 </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

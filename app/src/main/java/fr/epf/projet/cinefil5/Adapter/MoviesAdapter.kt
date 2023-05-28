@@ -1,4 +1,4 @@
-package fr.epf.projet.cinefil5
+package fr.epf.projet.cinefil5.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import fr.epf.projet.cinefil5.R
 import fr.epf.projet.cinefil5.model.ServiceDetailsResult
 
 

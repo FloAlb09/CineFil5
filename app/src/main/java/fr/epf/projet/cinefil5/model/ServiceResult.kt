@@ -13,14 +13,14 @@ data class ServiceResult(
 
 data class ServiceDetailsResult(
     val id: Int,
-    @SerializedName("original_title")
-    val originalTitle: String,
-    val overview: String,
     @SerializedName("poster_path")
     val posterPath: String,
+    val title: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
     @SerializedName("release_date")
     val releaseDate: String,
-    val title: String,
     @SerializedName("vote_average")
     val voteAverage: Float,
+    val overview: String
 )

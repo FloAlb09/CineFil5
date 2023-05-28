@@ -36,6 +36,9 @@
     <string name="movie_overview">The true story of a British businessman unwittingly recruited into one of the greatest international conflicts in history. Forming an unlikely partnership with a Soviet officer hoping to prevent a nuclear confrontation, the two men work together to provide the crucial intelligence used to defuse the Cuban Missile Crisis.</string>
 
     <string name="toolbar_keyword_input">What are you looking for ?</string>
+    
+    <!-- Favoris -->
+    <string name="success_favoris">This movie has been saved in your collection with success</string>
 
 
 </resources>

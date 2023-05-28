@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import fr.epf.projet.cinefil5.Adapter.MoviesAdapter
 import fr.epf.projet.cinefil5.api.RetrofitInstance
-import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
 import fr.epf.projet.cinefil5.databinding.ActivityKeywordBinding
 import fr.epf.projet.cinefil5.model.ServiceResult
 import retrofit2.Call

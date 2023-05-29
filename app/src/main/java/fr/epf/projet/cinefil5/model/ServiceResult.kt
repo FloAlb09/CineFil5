@@ -12,7 +12,7 @@ data class ServiceResult(
 )
 
 data class ServiceDetailsResult(
-    val id: Int,
+    var id: Int,
     @SerializedName("poster_path")
     val posterPath: String,
     val title: String,

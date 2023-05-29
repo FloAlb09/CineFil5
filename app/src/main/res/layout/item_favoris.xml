@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/item_movie_poster"
+            android:id="@+id/item_favoris_poster"
             android:layout_width="100dp"
             android:layout_height="160dp"
             android:layout_margin="8dp"
@@ -24,63 +24,83 @@
             tools:src="@drawable/thecourier" />
 
         <TextView
-            android:id="@+id/item_movie_title"
+            android:id="@+id/item_favoris_title"
             style="@style/MovieTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_toEndOf="@id/item_movie_poster"
+            android:layout_toEndOf="@id/item_favoris_poster"
             tools:text="@string/movie_title" />
 
         <TextView
-            android:id="@+id/item_movie_release_date_hint"
+            android:id="@+id/item_favoris_original_title"
+            style="@style/SubtitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_favoris_title"
+            android:layout_toEndOf="@id/item_favoris_poster"
+            tools:text="@string/movie_original_title" />
+
+        <ImageView
+            android:id="@+id/item_favoris_liked"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_alignTop="@+id/item_favoris_title"
+            android:layout_alignBottom="@+id/item_favoris_vote_average"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_star" />
+
+        <TextView
+            android:id="@+id/item_favoris_release_date_hint"
             style="@style/DefaultHintTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_movie_title"
-            android:layout_toEndOf="@id/item_movie_poster"
+            android:layout_below="@id/item_favoris_original_title"
+            android:layout_toEndOf="@id/item_favoris_poster"
             android:text="@string/movie_release_date_hint" />
 
         <TextView
-            android:id="@+id/item_movie_release_date"
+            android:id="@+id/item_favoris_release_date"
             style="@style/DefaultTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_movie_title"
+            android:layout_below="@id/item_favoris_original_title"
             android:layout_marginStart="4dp"
-            android:layout_toEndOf="@id/item_movie_release_date_hint"
+            android:layout_toEndOf="@id/item_favoris_release_date_hint"
             tools:text="@string/movie_release_date" />
 
         <RatingBar
-            android:id="@+id/item_movie_vote_average"
+            android:id="@+id/item_favoris_vote_average"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_movie_release_date_hint"
+            android:layout_below="@id/item_favoris_release_date_hint"
             android:layout_marginTop="4dp"
-            android:layout_toEndOf="@id/item_movie_poster"
+            android:layout_toEndOf="@id/item_favoris_poster"
             android:numStars="10"
             android:progressTint="#FFEB3B"
             android:secondaryProgressTint="#FFEB3B"
             tools:rating="3" />
 
         <TextView
-            android:id="@+id/item_movie_overview_hint"
+            android:id="@+id/item_favoris_overview_hint"
             style="@style/DefaultHintTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_movie_vote_average"
-            android:layout_toEndOf="@id/item_movie_poster"
+            android:layout_below="@+id/item_favoris_vote_average"
+            android:layout_toEndOf="@id/item_favoris_poster"
             android:text="@string/movie_overview_hint" />
 
         <TextView
-            android:id="@+id/item_movie_overview"
+            android:id="@+id/item_favoris_overview"
             style="@style/DefaultTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_movie_overview_hint"
+            android:layout_below="@+id/item_favoris_overview_hint"
             android:layout_marginBottom="12dp"
-            android:layout_toEndOf="@id/item_movie_poster"
+            android:layout_toEndOf="@id/item_favoris_poster"
             android:ellipsize="end"
             android:maxLines="4"
             tools:text="@string/movie_overview" />

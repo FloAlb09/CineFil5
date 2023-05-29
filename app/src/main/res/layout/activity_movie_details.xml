@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailsActivity">
 
-    <ImageView
-        android:id="@+id/movie_details_close"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="381dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -262,9 +252,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/movie_recommended_movies_button" />
-                </LinearLayout>
-            </LinearLayout>
 
+                    <include layout="@layout/navigation_bar_main"/>
+                </LinearLayout>
+
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

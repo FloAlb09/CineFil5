@@ -39,7 +39,7 @@
             android:background="@color/darkGrey"
             android:inputType="text"
             android:paddingHorizontal="10dp"
-            tools:text="@string/movie_title" />
+            tools:text="@string/toolbar_keyword_input" />
 
         <ImageView
             android:id="@+id/search_vectorasset"

@@ -9,23 +9,46 @@
 
     <include layout="@layout/toolbar_main"/>
 
-    <TextView
-        android:id="@+id/page_title"
-        style="@style/SubtitleTextStyle"
+    <LinearLayout
+        android:id="@+id/keyword_layout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/homepage_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SubtitleTextStyle"
+            android:layout_marginEnd="@dimen/default_margin_end_hint"
+            android:text="@string/keyword_page_title" />
+
+        <TextView
+            android:id="@+id/keyword_text_view"
+            android:layout_width="wrap_content"
+            style="@style/SubtitleTextStyle"
+            android:layout_height="wrap_content"
+            tools:text="@string/movie_title"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keyword_layout_title">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/keyword_movies_recyclerview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepage_popuplar_movie_hint"
+        android:padding="@dimen/default_padding_recyclerview"
         tools:itemCount="5"
         tools:listitem="@layout/item_movie" />
+
+    </ScrollView>
+
+    <include layout="@layout/navigation_bar_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

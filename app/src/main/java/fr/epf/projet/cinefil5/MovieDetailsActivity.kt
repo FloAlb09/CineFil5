@@ -2,12 +2,15 @@ package fr.epf.projet.cinefil5
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMovieDetailsBinding
 import fr.epf.projet.cinefil5.db.FavorisDatabase
+import fr.epf.projet.cinefil5.model.Favoris
 import fr.epf.projet.cinefil5.model.ServiceDetailsResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +30,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     var voteAverageDb: Float = 0.0f
     lateinit var overviewDb: String
     var likedDb: Int = 0
+
+    lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,11 +83,20 @@ class MovieDetailsActivity : AppCompatActivity() {
                     binding.movieDetailsRevenue.text = formatCurrency.format(result.revenue)
                     binding.movieDetailsOverview.text = result.overview
 
+                    var favorisDB = db.findFavoris(idMovie)
+
+                    if (favorisDB?.id == null) {
+                        binding.movieDetailsFavoris.setImageResource(R.drawable.ic_unstar)
+                    } else {
+                        binding.movieDetailsFavoris.setImageResource(R.drawable.ic_star)
+                    }
+
+
                     posterPathDb = posterPath
                     titleDb = binding.movieDetailsTitle.text.toString()
                     originalTitleDb = binding.movieDetailsOriginalTitle.text.toString()
                     releaseDateDb = binding.movieDetailsReleaseDate.text.toString()
-                    overviewDb = binding.movieDetailsTitle.text.toString()
+                    overviewDb = binding.movieDetailsOverview.text.toString()
                     if (vote_average != null) {
                         voteAverageDb = vote_average.toFloat()
                     }
@@ -97,32 +111,62 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.movieDetailsRecommendations.setOnClickListener {
             val intent = Intent(this, MovieRecommendationsActivity::class.java)
             intent.putExtra("id", idMovie)
+            intent.putExtra("movieTitle", titleDb)
             this.startActivity(intent)
         }
 
         binding.movieDetailsFavoris.setOnClickListener {
+            var favorisDB = db.findFavoris(idMovie)
 
-            val favoris = ServiceDetailsResult(
-                idMovie,
-                posterPathDb,
-                titleDb,
-                originalTitleDb,
-                releaseDateDb,
-                voteAverageDb,
-                overviewDb,
-                likedDb
-            )
-            val isInserted = db.addFavoris(favoris)
+            if (favorisDB?.id != null) {
+                val favorisDelete = db.deleteFavoris(idMovie)
+                if (favorisDelete){
+                    Toast.makeText(this,getString(R.string.delete_favoris_success), Toast.LENGTH_SHORT).show()
+                    binding.movieDetailsFavoris.setImageResource(R.drawable.ic_unstar)
+                } else{
+                    Toast.makeText(this,getString(R.string.delete_favoris_erreur), Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                val favoris = Favoris(
+                    idMovie,
+                    posterPathDb,
+                    titleDb,
+                    originalTitleDb,
+                    releaseDateDb,
+                    voteAverageDb,
+                    overviewDb,
+                    likedDb
+                )
+                val isInserted = db.addFavoris(favoris)
 
-            if (isInserted) {
-                Toast.makeText(
-                    this, getString(R.string.success_favoris), Toast.LENGTH_SHORT
-                ).show()
-                binding.movieDetailsFavoris.setImageResource(R.drawable.ic_star)
-                val intent = Intent(this, FavorisActivity::class.java)
-                intent.putExtra("id", idMovie)
-                this.startActivity(intent)
+                if (isInserted) {
+                    Toast.makeText(
+                        this, getString(R.string.success_favoris), Toast.LENGTH_SHORT
+                    ).show()
+                    binding.movieDetailsFavoris.setImageResource(R.drawable.ic_star)
+                }
             }
+
+        }
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
         }
     }
 }

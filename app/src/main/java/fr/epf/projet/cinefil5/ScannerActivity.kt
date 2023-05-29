@@ -3,26 +3,43 @@ package fr.epf.projet.cinefil5
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
-import fr.epf.projet.cinefil5.databinding.ActivityScannerBinding
 
 class ScannerActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityScannerBinding
+    lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityScannerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.activityScannerButton.setOnClickListener(View.OnClickListener {
-            val intentIntegrator = IntentIntegrator(this@ScannerActivity)
-            intentIntegrator.setOrientationLocked(true)
-            intentIntegrator.setPrompt("Scan a Qr code")
-            intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-            intentIntegrator.initiateScan()
-        })
+        setContentView(R.layout.activity_home)
+
+        val intentIntegrator = IntentIntegrator(this@ScannerActivity)
+        intentIntegrator.setPrompt("Scan a Qr code")
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        intentIntegrator.initiateScan()
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -30,11 +47,8 @@ class ScannerActivity : AppCompatActivity() {
         if (intentResult != null) {
             val contents = intentResult.contents
             if (contents != null) {
-                binding.activityScannerText!!.text = intentResult.contents
                 val intent = Intent(this@ScannerActivity, MovieDetailsActivity::class.java)
-                intent.putExtra("id",intentResult.contents.toInt() )
-                val result = intentResult.contents
-                Log.i("id", result)
+                intent.putExtra("id", intentResult.contents.toInt())
                 startActivity(intent)
             }
         } else {

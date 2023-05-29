@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.Adapter.MoviesAdapter
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityKeywordBinding
@@ -25,6 +26,8 @@ class KeywordActivity : AppCompatActivity() {
     lateinit var vectorAssetSearch: ImageView
     lateinit var editTextSearch: EditText
 
+    lateinit var navigationBar: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKeywordBinding.inflate(layoutInflater)
@@ -33,7 +36,8 @@ class KeywordActivity : AppCompatActivity() {
         val movieService = RetrofitInstance.buildMovieService()
 
         val keyword: String = intent.getStringExtra("keyword").toString()
-        Log.i("keyword KeywordActivity: ", keyword)
+
+        binding.keywordTextView.text = keyword
 
         val result = movieService.getKeyword(keyword)
 
@@ -84,6 +88,26 @@ class KeywordActivity : AppCompatActivity() {
                 Log.i("keyword MainActivity", keyword.toString())
                 this.startActivity(intent)
             }
+        }
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
         }
     }
 }

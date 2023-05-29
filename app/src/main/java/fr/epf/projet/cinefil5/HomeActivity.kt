@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.Adapter.MoviesAdapter
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityHomeBinding
@@ -25,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var vectorAssetSearch: ImageView
     lateinit var editTextSearch: EditText
+
+    lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +45,19 @@ class HomeActivity : AppCompatActivity() {
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
                         binding.popularMoviesRecyclerview.adapter = moviesAdapter
-                        moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
+                        moviesAdapter.setOnItemClickListener(object :
+                            MoviesAdapter.onItemClickListener {
                             override fun onItemClick(position: Int) {
-//                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@HomeActivity, MovieDetailsActivity::class.java)
+                                val intent =
+                                    Intent(this@HomeActivity, MovieDetailsActivity::class.java)
                                 intent.putExtra("id", items[position].id)
                                 startActivity(intent)
                             }
 
                         })
                         binding.popularMoviesRecyclerview.apply {
-                            layoutManager = LinearLayoutManager(this@HomeActivity,HORIZONTAL,false)
+                            layoutManager =
+                                LinearLayoutManager(this@HomeActivity, HORIZONTAL, false)
                             adapter = binding.popularMoviesRecyclerview.adapter
                         }
 
@@ -74,17 +79,19 @@ class HomeActivity : AppCompatActivity() {
                     items?.let {
                         var moviesAdapter = MoviesAdapter(items)
                         binding.trendingWeekMoviesRecyclerview.adapter = moviesAdapter
-                        moviesAdapter.setOnItemClickListener(object : MoviesAdapter.onItemClickListener{
+                        moviesAdapter.setOnItemClickListener(object :
+                            MoviesAdapter.onItemClickListener {
                             override fun onItemClick(position: Int) {
-//                                Toast.makeText(this@MainActivity, "You clicked on item no. $position", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@HomeActivity, MovieDetailsActivity::class.java)
+                                val intent =
+                                    Intent(this@HomeActivity, MovieDetailsActivity::class.java)
                                 intent.putExtra("id", items[position].id)
                                 startActivity(intent)
                             }
 
                         })
                         binding.trendingWeekMoviesRecyclerview.apply {
-                            layoutManager = LinearLayoutManager(this@HomeActivity,HORIZONTAL,false)
+                            layoutManager =
+                                LinearLayoutManager(this@HomeActivity, HORIZONTAL, false)
                             adapter = binding.trendingWeekMoviesRecyclerview.adapter
                         }
 
@@ -96,11 +103,6 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Erreur serveur", Toast.LENGTH_SHORT).show()
             }
         })
-
-        binding.activityHomeButtonSacnner.setOnClickListener{
-            val intent = Intent(this, ScannerActivity::class.java)
-            this.startActivity(intent)
-        }
 
         toolbar = findViewById(R.id.toolbar)
         vectorAssetSearch = toolbar.findViewById(R.id.search_vectorasset)
@@ -118,6 +120,26 @@ class HomeActivity : AppCompatActivity() {
                 Log.i("keyword MainActivity", keyword.toString())
                 this.startActivity(intent)
             }
+        }
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
         }
     }
 }

@@ -7,22 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".FavorisActivity">
 
+    <include layout="@layout/toolbar_main"/>
+
     <TextView
-        android:id="@+id/textView_Database"
+        android:id="@+id/page_title"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favoris_page_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <include layout="@layout/navigation_bar_main" />
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/page_title">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favoris_movies_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Database"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_movie" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favoris_movies_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding_recyclerview"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_favoris" />
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

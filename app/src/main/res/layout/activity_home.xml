@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    style="@style/BackgroundStyle">
+    tools:context=".HomeActivity">
 
-    <include layout="@layout/toolbar_main"/>
+    <include layout="@layout/toolbar_main" />
 
     <TextView
         android:id="@+id/page_title"
@@ -31,13 +31,13 @@
         android:id="@+id/popular_movies_recyclerview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/default_padding_recyclerview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepage_popuplar_movie_hint"
         tools:itemCount="5"
-        tools:listitem="@layout/item_movie"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:listitem="@layout/item_movie" />
 
     <TextView
         android:id="@+id/homepage_trending_week_movie_hint"
@@ -52,21 +52,14 @@
         android:id="@+id/trending_week_movies_recyclerview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/default_padding_recyclerview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepage_trending_week_movie_hint"
         tools:itemCount="5"
-        tools:listitem="@layout/item_movie"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:listitem="@layout/item_movie" />
 
-    <Button
-        android:id="@+id/activity_home_button_sacnner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="scan now"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <include layout="@layout/navigation_bar_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ class MovieDetailsResult (
     val runtime: Int,
     val budget: Int,
     val revenue: Int,
-    val overview: String,
+    val overview: String
 )
 
 data class Genre(

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.Adapter.MoviesAdapter
 import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMovieRecommendationsBinding
@@ -25,6 +26,8 @@ class MovieRecommendationsActivity : AppCompatActivity() {
     lateinit var vectorAssetSearch: ImageView
     lateinit var editTextSearch: EditText
 
+    lateinit var navigationBar: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieRecommendationsBinding.inflate(layoutInflater)
@@ -33,6 +36,8 @@ class MovieRecommendationsActivity : AppCompatActivity() {
         val movieService = RetrofitInstance.buildMovieService()
 
         val idMovie: Int = intent.getIntExtra("id", 1)
+
+        binding.movieTitleRecommendationsTextView.text = intent.getStringExtra("movieTitle")
 
         val result = movieService.getMovieRecommendations(idMovie)
 
@@ -83,6 +88,26 @@ class MovieRecommendationsActivity : AppCompatActivity() {
                 Log.i("keyword MainActivity", keyword.toString())
                 this.startActivity(intent)
             }
+        }
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
         }
     }
 }

@@ -62,7 +62,7 @@ class MoviesAdapter(var items: List<ServiceDetailsResult>) : RecyclerView.Adapte
             releaseDate.text = movie.releaseDate
             overview.text = movie.overview
             Glide.with(poster).load(`IMAGE-URL` + movie.posterPath).into(poster)
-            voteAverage.rating = movie.voteAverage.toFloat()
+            voteAverage.rating = movie.voteAverage
         }
     }
 }

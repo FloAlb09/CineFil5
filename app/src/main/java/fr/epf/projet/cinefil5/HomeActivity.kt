@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var editTextSearch: EditText
 
     lateinit var navigationBar: BottomNavigationView
+
+    private var requestCamera: ActivityResultLauncher<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +126,14 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
+            if (it){
+                this.startActivity(Intent(this, ScanActivity::class.java))
+            }else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         navigationBar = findViewById(R.id.navigation_bar)
         navigationBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -134,7 +146,7 @@ class HomeActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.scan -> {
-                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    requestCamera?.launch((android.Manifest.permission.CAMERA))
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false

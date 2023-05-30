@@ -8,8 +8,8 @@
 
     <!-- Homepage -->
     <string name="homepage_title">Discover your movies of tomorrow</string>
-    <string name="homepage_pouplar_movie_hint">Popular movies</string>
-    <string name="homepage_trending_week_movie_hint">Week trending movies</string>
+    <string name="homepage_pouplar_movie_hint">Popular movies >></string>
+    <string name="homepage_trending_week_movie_hint">Week trending movies >></string>
 
     <!-- Details movie page -->
     <string name="details_movie_title">Movie details</string>
@@ -49,12 +49,17 @@
     <!-- Recommendation page -->
     <string name="recommendation_page_title">Movie recommendations for</string>
 
-    
+
     <!-- Favoris -->
     <string name="favoris_page_title">Your collection</string>
     <string name="success_favoris">This movie has been saved in your collection with success</string>
     <string name="delete_favoris_success">This movie has been removed from you collection</string>
     <string name="delete_favoris_erreur">Supression error</string>
+
+    <!-- Scan -->
+    <string name="no_barcode_detected">No bar code detected</string>
+    <string name="barcode_stopped">Barcode scanner has been stopped</string>
+    <string name="btn_search_item">SEARCH ITEM</string>
 
 
 </resources>

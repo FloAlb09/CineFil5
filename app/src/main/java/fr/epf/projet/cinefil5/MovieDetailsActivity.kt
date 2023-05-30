@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,6 +33,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var overviewDb: String
     var likedDb: Int = 0
 
+    private var requestCamera: ActivityResultLauncher<String>? = null
+
     lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +47,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         val movieService = RetrofitInstance.buildMovieService()
 
         val idMovie: Int = intent.getIntExtra("id", 1)
+
+        Log.i("--movie_id-------------------------------",idMovie.toString())
 
         val result = movieService.getMovieDetails(idMovie)
 
@@ -149,6 +155,15 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         }
 
+
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
+            if (it){
+                this.startActivity(Intent(this, ScanActivity::class.java))
+            }else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         navigationBar = findViewById(R.id.navigation_bar)
         navigationBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -161,7 +176,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.scan -> {
-                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    requestCamera?.launch((android.Manifest.permission.CAMERA))
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false

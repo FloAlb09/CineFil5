@@ -46,7 +46,6 @@ class FavorisAdapter(var items: List<Favoris>) : RecyclerView.Adapter<FavorisAda
         var releaseDate: TextView
         var voteAverage: RatingBar
         var overview: TextView
-        var starIcon: ImageView
 
         init {
             poster = itemView.findViewById(R.id.item_favoris_poster)
@@ -55,7 +54,6 @@ class FavorisAdapter(var items: List<Favoris>) : RecyclerView.Adapter<FavorisAda
             releaseDate = itemView.findViewById(R.id.item_favoris_release_date)
             voteAverage = itemView.findViewById(R.id.item_favoris_vote_average)
             overview = itemView.findViewById(R.id.item_favoris_overview)
-            starIcon = itemView.findViewById(R.id.item_favoris_liked)
 
             itemView.setOnClickListener {
                 listener.onItemClick(adapterPosition)
@@ -71,7 +69,6 @@ class FavorisAdapter(var items: List<Favoris>) : RecyclerView.Adapter<FavorisAda
             Log.i("--------------------FavorisAdapter", favoris.overview)
             Glide.with(poster).load(`IMAGE-URL` + favoris.posterPath).into(poster)
             voteAverage.rating = favoris.voteAverage
-            starIcon.setImageResource(R.drawable.ic_star)
         }
     }
 }

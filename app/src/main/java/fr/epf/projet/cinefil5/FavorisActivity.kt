@@ -3,7 +3,13 @@ package fr.epf.projet.cinefil5
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.Adapter.FavorisAdapter
@@ -16,6 +22,12 @@ class FavorisActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavorisBinding
 
     lateinit var db: FavorisDatabase
+
+    lateinit var toolbar: Toolbar
+    lateinit var vectorAssetSearch: ImageView
+    lateinit var editTextSearch: EditText
+
+    private var requestCamera: ActivityResultLauncher<String>? = null
 
     lateinit var navigationBar : BottomNavigationView
 
@@ -49,6 +61,33 @@ class FavorisActivity : AppCompatActivity() {
             }
         }
 
+        toolbar = findViewById(R.id.toolbar)
+        vectorAssetSearch = toolbar.findViewById(R.id.search_vectorasset)
+        editTextSearch = toolbar.findViewById(R.id.charsearch_edittext)
+
+        setSupportActionBar(toolbar)
+
+        vectorAssetSearch.setOnClickListener {
+            val keyword = editTextSearch.text
+            if (keyword.isEmpty()) {
+                Toast.makeText(this, "The search bar can't be empty!!", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, KeywordActivity::class.java)
+                intent.putExtra("keyword", keyword.toString())
+                Log.i("keyword MainActivity", keyword.toString())
+                this.startActivity(intent)
+            }
+        }
+
+
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
+            if (it){
+                this.startActivity(Intent(this, ScanActivity::class.java))
+            }else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         navigationBar = findViewById(R.id.navigation_bar)
         navigationBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -61,7 +100,7 @@ class FavorisActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.scan -> {
-                    this.startActivity(Intent(this, ScannerActivity::class.java))
+                    requestCamera?.launch((android.Manifest.permission.CAMERA))
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> false

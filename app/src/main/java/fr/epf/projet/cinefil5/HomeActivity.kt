@@ -29,9 +29,9 @@ class HomeActivity : AppCompatActivity() {
     lateinit var vectorAssetSearch: ImageView
     lateinit var editTextSearch: EditText
 
-    lateinit var navigationBar: BottomNavigationView
-
     private var requestCamera: ActivityResultLauncher<String>? = null
+
+    lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

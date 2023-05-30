@@ -3,13 +3,20 @@ package fr.epf.projet.cinefil5
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.epf.projet.cinefil5.databinding.ActivityScanBinding
 import java.io.IOException
 
@@ -18,10 +25,64 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var barcodeDetector: BarcodeDetector
     private lateinit var cameraSource: CameraSource
     var intentData = ""
+
+    lateinit var toolbar: Toolbar
+    lateinit var vectorAssetSearch: ImageView
+    lateinit var editTextSearch: EditText
+
+    private var requestCamera: ActivityResultLauncher<String>? = null
+
+    lateinit var navigationBar: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        toolbar = findViewById(R.id.toolbar)
+        vectorAssetSearch = toolbar.findViewById(R.id.search_vectorasset)
+        editTextSearch = toolbar.findViewById(R.id.charsearch_edittext)
+
+        setSupportActionBar(toolbar)
+
+        vectorAssetSearch.setOnClickListener {
+            val keyword = editTextSearch.text
+            if (keyword.isEmpty()) {
+                Toast.makeText(this, "The search bar can't be empty!!", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, KeywordActivity::class.java)
+                intent.putExtra("keyword", keyword.toString())
+                Log.i("keyword MainActivity", keyword.toString())
+                this.startActivity(intent)
+            }
+        }
+
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
+            if (it){
+                this.startActivity(Intent(this, ScanActivity::class.java))
+            }else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        navigationBar = findViewById(R.id.navigation_bar)
+        navigationBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_page -> {
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.collection_page -> {
+                    this.startActivity(Intent(this, FavorisActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.scan -> {
+                    requestCamera?.launch((android.Manifest.permission.CAMERA))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+            true
+        }
     }
 
     private fun initBarcode() {
@@ -64,7 +125,6 @@ class ScanActivity : AppCompatActivity() {
                         val intent = Intent(this@ScanActivity, MovieDetailsActivity::class.java)
                         intent.putExtra("id", intentData.toInt())
                         startActivity(intent)
-                        //finish()
                     }
                 }
             }

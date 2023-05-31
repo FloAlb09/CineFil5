@@ -2,7 +2,6 @@ package fr.epf.projet.cinefil5
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,7 +12,6 @@ import fr.epf.projet.cinefil5.api.RetrofitInstance
 import fr.epf.projet.cinefil5.databinding.ActivityMovieDetailsBinding
 import fr.epf.projet.cinefil5.db.FavorisDatabase
 import fr.epf.projet.cinefil5.model.Favoris
-import fr.epf.projet.cinefil5.model.ServiceDetailsResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,8 +46,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         val idMovie: Int = intent.getIntExtra("id", 1)
 
-        Log.i("--movie_id-------------------------------",idMovie.toString())
-
         val result = movieService.getMovieDetails(idMovie)
 
         result.enqueue(object : Callback<MovieDetailsResult> {
@@ -64,13 +60,13 @@ class MovieDetailsActivity : AppCompatActivity() {
                     val genresArray = result?.genres
                     val sizeGenres: Int? = genresArray?.size
                     var genre: String? = ""
-                    var genres: String? = ""
-                    for (i in 0..(sizeGenres!! - 1)) {
-                        genre = genresArray.get(i).name
-                        genres = genres + ", " + genre
+                    var genres: String? = genresArray?.get(0)?.name
+                    if (sizeGenres != 1) {
+                        for (i in 1..(sizeGenres!! - 1)) {
+                            genre = genresArray.get(i).name
+                            genres = genres + ", " + genre
+                        }
                     }
-
-
                     val posterPath = result.posterPath
                     val moviePosterURL = "https://image.tmdb.org/t/p/w500" + posterPath
                     val moviePoster = binding.movieDetailsPoster
@@ -126,11 +122,15 @@ class MovieDetailsActivity : AppCompatActivity() {
 
             if (favorisDB?.id != null) {
                 val favorisDelete = db.deleteFavoris(idMovie)
-                if (favorisDelete){
-                    Toast.makeText(this,getString(R.string.delete_favoris_success), Toast.LENGTH_SHORT).show()
+                if (favorisDelete) {
+                    Toast.makeText(
+                        this, getString(R.string.delete_favoris_success), Toast.LENGTH_SHORT
+                    ).show()
                     binding.movieDetailsFavoris.setImageResource(R.drawable.ic_unstar)
-                } else{
-                    Toast.makeText(this,getString(R.string.delete_favoris_erreur), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this, getString(R.string.delete_favoris_erreur), Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
                 val favoris = Favoris(
@@ -156,11 +156,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
 
-        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
-            if (it){
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
                 this.startActivity(Intent(this, ScanActivity::class.java))
-            }else {
-                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 

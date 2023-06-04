@@ -11,6 +11,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="110dp"
         android:orientation="vertical">
 
         <ScrollView
@@ -252,11 +253,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/movie_recommended_movies_button" />
-
-                    <include layout="@layout/navigation_bar_main"/>
                 </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <include layout="@layout/navigation_bar_main"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

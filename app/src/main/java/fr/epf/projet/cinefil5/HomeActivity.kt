@@ -3,6 +3,8 @@ package fr.epf.projet.cinefil5
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -126,11 +128,29 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission(),){
-            if (it){
+        editTextSearch.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                val keyword = editTextSearch.text
+                if (keyword.isEmpty()) {
+                    Toast.makeText(this, "The search bar can't be empty!!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val intent = Intent(this, KeywordActivity::class.java)
+                    intent.putExtra("keyword", keyword.toString())
+                    Log.i("keyword MainActivity", keyword.toString())
+                    this.startActivity(intent)
+                }
+                return@OnKeyListener true
+            }
+            false
+        })
+
+        requestCamera = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
                 this.startActivity(Intent(this, ScanActivity::class.java))
-            }else {
-                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.no_barcode_detected), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 

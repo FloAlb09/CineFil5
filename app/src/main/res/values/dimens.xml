@@ -4,5 +4,7 @@
     <dimen name="default_margin_top_movie_details">2dp</dimen>
     <dimen name="default_margin_end_hint">2dp</dimen>
     <dimen name="default_padding_recyclerview">8dp</dimen>
-    <dimen name="default_scrollView_RecyclerView">500dp</dimen>
+    <dimen name="default_scrollView_RecyclerView">550dp</dimen>
+    <dimen name="default_scrollView_Height_MovieRecommendations_RecyclerView">500dp</dimen>
+    <dimen name="default_margin_bottom_scrollview">110dp</dimen>
 </resources>

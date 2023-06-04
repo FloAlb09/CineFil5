@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".FavorisActivity">
 
-    <include layout="@layout/toolbar_main"/>
+    <include layout="@layout/toolbar_main" />
 
     <TextView
         android:id="@+id/page_title"
@@ -18,12 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <include
-        layout="@layout/navigation_bar_main"/>
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/default_scrollView_RecyclerView"
+        android:layout_marginBottom="@dimen/default_margin_bottom_scrollview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/page_title">
@@ -37,5 +35,6 @@
             tools:listitem="@layout/item_favoris" />
     </ScrollView>
 
+    <include layout="@layout/navigation_bar_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

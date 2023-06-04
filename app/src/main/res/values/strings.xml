@@ -47,7 +47,7 @@
     <string name="keyword_page_title">You looked for</string>
 
     <!-- Recommendation page -->
-    <string name="recommendation_page_title">Movie recommendations for</string>
+    <string name="recommendation_page_title">Movie recommendations for:</string>
 
 
     <!-- Favoris -->

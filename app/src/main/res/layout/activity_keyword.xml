@@ -2,50 +2,47 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KeywordActivity"
-    style="@style/BackgroundStyle">
+    tools:context=".KeywordActivity">
 
-    <include layout="@layout/toolbar_main"/>
+    <include layout="@layout/toolbar_main" />
 
-    <LinearLayout
-        android:id="@+id/keyword_layout_title"
+    <TextView
+        android:id="@+id/page_title"
+        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin_start_page_title"
+        android:text="@string/keyword_page_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/page_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/SubtitleTextStyle"
-            android:layout_marginEnd="@dimen/default_margin_end_hint"
-            android:text="@string/keyword_page_title" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <TextView
-            android:id="@+id/keyword_text_view"
-            android:layout_width="wrap_content"
-            style="@style/SubtitleTextStyle"
-            android:layout_height="wrap_content"
-            tools:text="@string/movie_title"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/keyword_text_view"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/page_title"
+        tools:text="@string/movie_title" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keyword_layout_title">
+        app:layout_constraintTop_toBottomOf="@+id/keyword_text_view">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/keyword_movies_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding_recyclerview"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_movie" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/keyword_movies_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding_recyclerview"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_movie" />
 
     </ScrollView>
 

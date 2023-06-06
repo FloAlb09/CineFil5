@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_margin">20dp</dimen>
+    <dimen name="default_margin_start_page_title">5dp</dimen>
     <dimen name="default_margin_top_movie_details">2dp</dimen>
     <dimen name="default_margin_end_hint">2dp</dimen>
     <dimen name="default_padding_recyclerview">8dp</dimen>

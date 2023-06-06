@@ -60,7 +60,10 @@ class MovieDetailsActivity : AppCompatActivity() {
                     val genresArray = result?.genres
                     val sizeGenres: Int? = genresArray?.size
                     var genre: String? = ""
-                    var genres: String? = genresArray?.get(0)?.name
+                    var genres: String? = ""
+                    if (sizeGenres != 0) {
+                        genres = genresArray?.get(0)?.name
+                    }
                     if (sizeGenres != 1) {
                         for (i in 1..(sizeGenres!! - 1)) {
                             genre = genresArray.get(i).name
@@ -93,8 +96,11 @@ class MovieDetailsActivity : AppCompatActivity() {
                         binding.movieDetailsFavoris.setImageResource(R.drawable.ic_star)
                     }
 
-
-                    posterPathDb = posterPath
+                    if (posterPath != null){
+                        posterPathDb = posterPath
+                    } else {
+                        posterPathDb = "No poster"
+                    }
                     titleDb = binding.movieDetailsTitle.text.toString()
                     originalTitleDb = binding.movieDetailsOriginalTitle.text.toString()
                     releaseDateDb = binding.movieDetailsReleaseDate.text.toString()

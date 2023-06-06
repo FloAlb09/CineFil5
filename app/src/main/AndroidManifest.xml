@@ -24,9 +24,6 @@
             android:name=".FavorisActivity"
             android:exported="false" />
         <activity
-            android:name=".ScannerActivity"
-            android:exported="false" />
-        <activity
             android:name=".KeywordActivity"
             android:exported="false" />
         <activity

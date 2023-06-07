@@ -2,7 +2,7 @@
     <string name="app_name">CineFil</string>
 
     <!-- Menu -->
-    <string name="bottom_homepage_item">Accueil</string>
+    <string name="bottom_homepage_item">Homepage</string>
     <string name="bottom_collection_item">Collection</string>
     <string name="bottom_scan_item">Scan</string>
 

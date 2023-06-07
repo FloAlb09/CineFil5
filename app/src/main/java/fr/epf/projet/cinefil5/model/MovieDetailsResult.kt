@@ -18,8 +18,8 @@ class MovieDetailsResult (
     val releaseDate: String,
     val status: String,
     val runtime: Int,
-    val budget: Int,
-    val revenue: Int,
+    val budget: Long,
+    val revenue: Long,
     val overview: String
 )
 
